@@ -1,17 +1,9 @@
 import { useState } from "react";
 import SectionBlock from "./SectionBlock";
-import {
-  Mail,
-  MapPin,
-  Copy,
-  Check,
-  ArrowRight,
-  Github,
-  Linkedin,
-  MessageCircle,
-  InstagramIcon,
-  BookOpen,
-} from "lucide-react";
+import { Mail, Copy, Check, MessageCircle } from "lucide-react";
+import { SOCIAL_LINKS, PERSONAL_INFO } from "@/constants";
+import SocialLinks from "./common/SocialLinks";
+import FloatingInput from "./common/FloatingInput";
 
 const ContactSection = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -19,22 +11,27 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const phoneNumber = "+918849892389";
     const text = `Name: ${form.name}\nEmail: ${form.email}\nMessage: ${form.message}`;
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, "_blank");
+    window.open(
+      `https://wa.me/${PERSONAL_INFO.phone}?text=${encodedText}`,
+      "_blank",
+    );
   };
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("harwanidhiraj23@gmail.com");
+    navigator.clipboard.writeText(PERSONAL_INFO.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const connectLinks = SOCIAL_LINKS.filter(
+    (l) => l.label !== "Email" && l.label !== "WhatsApp",
+  );
+
   return (
     <SectionBlock id="contact" title="Get in touch">
       <div className="grid md:grid-cols-2 gap-8 md:gap-20">
-        {/* Left Column: Contact Info */}
         <div className="space-y-8 md:space-y-10">
           <p className="text-foreground/80 leading-relaxed font-light text-lg">
             I'm always interested in hearing about new projects and
@@ -52,7 +49,7 @@ const ContactSection = () => {
                   Email
                 </p>
                 <p className="font-mono text-sm break-all">
-                  harwanidhiraj23@gmail.com
+                  {PERSONAL_INFO.email}
                 </p>
               </div>
               <button
@@ -85,75 +82,32 @@ const ContactSection = () => {
             <p className="text-xs uppercase tracking-widest text-foreground/50 mb-4">
               Connect
             </p>
-            <div className="flex gap-4">
-              {[
-                { Icon: Github, href: "https://github.com/harwanidhiraj" },
-                {
-                  Icon: Linkedin,
-                  href: "https://www.linkedin.com/in/harwani-dhiraj-395a88214/",
-                },
-                {
-                  Icon: BookOpen,
-                  href: "", //change
-                },
-              ].map(({ Icon, href }, i) => (
-                <a
-                  key={i}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 border border-foreground/20 hover:bg-black hover:text-white transition-all duration-300 hover:-translate-y-1"
-                >
-                  <Icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
+            <SocialLinks links={connectLinks} variant="minimal" />
           </div>
         </div>
 
-        {/* Right Column: Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="group relative">
-            <input
-              type="text"
-              required
-              placeholder=" "
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="peer w-full bg-transparent border-2 border-foreground/10 px-4 py-4 text-foreground focus:outline-none focus:border-black transition-colors"
-            />
-            <label className="absolute left-4 top-4 text-foreground/40 text-sm uppercase tracking-widest transition-all duration-300 pointer-events-none peer-focus:-translate-y-7 peer-focus:text-xs peer-focus:text-black peer-focus:bg-background peer-focus:px-2 peer-[:not(:placeholder-shown)]:-translate-y-7 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-black peer-[:not(:placeholder-shown)]:bg-background peer-[:not(:placeholder-shown)]:px-2">
-              Your Name
-            </label>
-          </div>
-
-          <div className="group relative">
-            <input
-              type="email"
-              required
-              placeholder=" "
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="peer w-full bg-transparent border-2 border-foreground/10 px-4 py-4 text-foreground focus:outline-none focus:border-black transition-colors"
-            />
-            <label className="absolute left-4 top-4 text-foreground/40 text-sm uppercase tracking-widest transition-all duration-300 pointer-events-none peer-focus:-translate-y-7 peer-focus:text-xs peer-focus:text-black peer-focus:bg-background peer-focus:px-2 peer-[:not(:placeholder-shown)]:-translate-y-7 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-black peer-[:not(:placeholder-shown)]:bg-background peer-[:not(:placeholder-shown)]:px-2">
-              Email Address
-            </label>
-          </div>
-
-          <div className="group relative">
-            <textarea
-              required
-              rows={5}
-              placeholder=" "
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="peer w-full bg-transparent border-2 border-foreground/10 px-4 py-4 text-foreground focus:outline-none focus:border-black transition-colors resize-none"
-            />
-            <label className="absolute left-4 top-4 text-foreground/40 text-sm uppercase tracking-widest transition-all duration-300 pointer-events-none peer-focus:-translate-y-7 peer-focus:text-xs peer-focus:text-black peer-focus:bg-background peer-focus:px-2 peer-[:not(:placeholder-shown)]:-translate-y-7 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-black peer-[:not(:placeholder-shown)]:bg-background peer-[:not(:placeholder-shown)]:px-2">
-              Message
-            </label>
-          </div>
+          <FloatingInput
+            label="Your Name"
+            value={form.name}
+            onChange={(name) => setForm({ ...form, name })}
+            required
+          />
+          <FloatingInput
+            label="Email Address"
+            type="email"
+            value={form.email}
+            onChange={(email) => setForm({ ...form, email })}
+            required
+          />
+          <FloatingInput
+            label="Message"
+            value={form.message}
+            onChange={(message) => setForm({ ...form, message })}
+            multiline
+            rows={5}
+            required
+          />
 
           <button
             type="submit"

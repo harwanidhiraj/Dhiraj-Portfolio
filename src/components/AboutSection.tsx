@@ -1,14 +1,13 @@
 import SectionBlock from "./SectionBlock";
 import AnimatedAvatar from "./AnimatedAvatar";
-import { BookOpen } from "lucide-react";
 
 const AboutSection = () => (
   <SectionBlock id="about" title="About me">
     <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
       <AnimatedAvatar />
       <div className="flex-1">
-        <p className="body-text max-w-2xl">
-          I am a passionate MERN Stack Developer with over 3+ years of hands-on
+        <p className="body-text max-w-2xl first-letter:text-3xl first-letter:font-black first-letter:mr-0.5 first-letter:float-left first-letter:leading-none">
+          I am a passionate MERN Stack Developer with over 4+ years of hands-on
           experience in building scalable and production-ready web applications
           using MongoDB, Express.js, React.js, and Node.js. I specialize in
           developing responsive, user-friendly interfaces and robust backend

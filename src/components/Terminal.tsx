@@ -5,6 +5,7 @@ import {
   Maximize2,
   Minimize2,
 } from "lucide-react";
+import { PROJECTS, PERSONAL_INFO } from "@/constants";
 
 interface CommandOutput {
   id: number;
@@ -22,7 +23,7 @@ const Terminal = () => {
       type: "response",
       content: (
         <div className="mb-2">
-          <p>Welcome to Dhiraj's Portfolio Terminal v1.0.0</p>
+          <p>Welcome to {PERSONAL_INFO.name}'s Portfolio Terminal v1.0.0</p>
           <p>
             I am a conversational AI. Type{" "}
             <span className="text-green-400">help</span> for commands, or just
@@ -35,19 +36,16 @@ const Terminal = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Focus input when clicking anywhere in the terminal
   const handleTerminalClick = () => {
     inputRef.current?.focus();
   };
 
-  // Scroll to bottom on new history
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [history, isOpen]);
 
-  // Global keyboard shortcut
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -62,8 +60,6 @@ const Terminal = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
-
-  // ... existing imports
 
   const getCommandResponse = (cmd: string): React.ReactNode | null => {
     switch (cmd) {
@@ -85,7 +81,7 @@ const Terminal = () => {
           </div>
         );
       case "about":
-        return "I'm Dhiraj Harwani, a passionate developer specializing in React.js, Next.js, Node.js, MongoDB, PostgreSQL and TypeScript.";
+        return `I'm ${PERSONAL_INFO.name}, a passionate developer specializing in React.js, Next.js, Node.js, MongoDB, PostgreSQL and TypeScript.`;
       case "skills":
         return (
           <div>
@@ -98,24 +94,15 @@ const Terminal = () => {
       case "projects":
         return (
           <div className="flex flex-col gap-1">
-            <a href="#projects" className="text-blue-400 hover:underline">
-              1. EVENT MANAGEMENT SYSTEM
-            </a>
-            <a href="#projects" className="text-blue-400 hover:underline">
-              2. JOB JUNCTION
-            </a>
-            <a href="#projects" className="text-blue-400 hover:underline">
-              3. LOGGY - CAR MAINTENANCE TRACKER
-            </a>
-            <a href="#projects" className="text-blue-400 hover:underline">
-              4. TERRE DES HOMMES SUISSE - TDHS
-            </a>
-            <a href="#projects" className="text-blue-400 hover:underline">
-              5. GROCERY APP
-            </a>
-            <a href="#projects" className="text-blue-400 hover:underline">
-              6. BASE TEAM
-            </a>
+            {PROJECTS.map((project, i) => (
+              <a
+                key={project.title}
+                href="#projects"
+                className="text-blue-400 hover:underline"
+              >
+                {i + 1}. {project.title}
+              </a>
+            ))}
           </div>
         );
       case "contact":
@@ -124,10 +111,10 @@ const Terminal = () => {
             <p>
               Email:{" "}
               <a
-                href="mailto:harwanidhiraj23@gmail.com"
+                href={`mailto:${PERSONAL_INFO.email}`}
                 className="text-blue-400 hover:underline"
               >
-                harwanidhiraj23@gmail.com
+                {PERSONAL_INFO.email}
               </a>
             </p>
             <p>
@@ -162,27 +149,22 @@ const Terminal = () => {
   const processQuery = (input: string): React.ReactNode | null => {
     const lower = input.toLowerCase();
 
-    // Greeting
     if (lower.match(/^(hi|hello|hey|greetings)/)) {
-      return "Hello! I'm Dhiraj's virtual assistant. How can I help you today?";
+      return `Hello! I'm ${PERSONAL_INFO.name}'s virtual assistant. How can I help you today?`;
     }
 
-    // About
     if (lower.match(/(who|about|author|creator|developer)/)) {
       return getCommandResponse("about");
     }
 
-    // Skills
     if (lower.match(/(skill|stack|tech|language|framework)/)) {
       return getCommandResponse("skills");
     }
 
-    // Projects
     if (lower.match(/(project|work|app|site|portfolio)/)) {
       return getCommandResponse("projects");
     }
 
-    // Contact
     if (lower.match(/(contact|email|reach|hire|github|linkedin)/)) {
       return getCommandResponse("contact");
     }
@@ -203,7 +185,6 @@ const Terminal = () => {
       },
     ];
 
-    // Check for clear/exit first
     if (trimmedCmd.toLowerCase() === "clear") {
       setHistory([]);
       return;
@@ -213,15 +194,12 @@ const Terminal = () => {
       return;
     }
 
-    // Try exact command match
     let response = getCommandResponse(trimmedCmd.toLowerCase());
 
-    // If no exact match, try natural language processing
     if (!response) {
       response = processQuery(trimmedCmd);
     }
 
-    // Default fallback
     if (!response) {
       response = (
         <span className="text-red-400">
@@ -275,7 +253,6 @@ const Terminal = () => {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-center justify-between px-4 py-2 border-b border-white/10 bg-[#1a1a1a]">
           <div className="flex items-center gap-2">
             <div
@@ -307,7 +284,6 @@ const Terminal = () => {
           </div>
         </div>
 
-        {/* content */}
         <div
           className="flex-1 overflow-y-auto p-4 text-white/90 selection:bg-white/20"
           ref={scrollRef}

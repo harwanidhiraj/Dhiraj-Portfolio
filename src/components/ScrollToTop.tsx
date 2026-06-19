@@ -20,11 +20,10 @@ const ScrollToTop = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Circle configuration
   const size = 48;
   const strokeWidth = 3;
   const center = size / 2;
-  const radius = center - strokeWidth - 2; // -2 for padding
+  const radius = center - strokeWidth - 2; 
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (progress / 100) * circumference;
 
@@ -40,7 +39,7 @@ const ScrollToTop = () => {
     >
       <div className="relative flex items-center justify-center bg-background/80 backdrop-blur-md rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
         <svg width={size} height={size} className="rotate-[-90deg]">
-          {/* Background Ring */}
+
           <circle
             cx={center}
             cy={center}
@@ -50,7 +49,7 @@ const ScrollToTop = () => {
             strokeWidth={strokeWidth}
             className="text-foreground/10"
           />
-          {/* Progress Ring */}
+
           <circle
             cx={center}
             cy={center}
@@ -65,7 +64,6 @@ const ScrollToTop = () => {
           />
         </svg>
 
-        {/* Icon */}
         <div className="absolute inset-0 flex items-center justify-center">
           <ArrowUp className="w-5 h-5 text-foreground/80 group-hover:-translate-y-0.5 transition-transform duration-300" />
         </div>

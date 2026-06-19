@@ -1,61 +1,20 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
+import { ChevronDown } from "lucide-react";
 import {
-  Github,
-  Linkedin,
-  Twitter,
-  Mail,
-  ChevronDown,
-  InstagramIcon,
-  BookOpen,
-} from "lucide-react";
-
-const roles = [
-  "MERN Stack Developer",
-  "Full Stack Developer",
-  "React Developer",
-  "Next.js Developer",
-  "Node.js Developer",
-];
+  SOCIAL_LINKS,
+  ROLES,
+  HERO_TECH_TAGS,
+  PERSONAL_INFO,
+} from "@/constants";
+import SocialLinks from "./common/SocialLinks";
+import TechTag from "./common/TechTag";
+import useTypewriter from "@/hooks/useTypewriter";
 
 const HeroSection = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [cursorVisible, setCursorVisible] = useState(true);
+  const { displayText, cursorVisible } = useTypewriter({ strings: ROLES });
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const buildDate = useMemo(() => new Date().toISOString().split("T")[0], []);
 
-  // Blinking cursor
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setCursorVisible((prev) => !prev);
-    }, 530);
-    return () => clearInterval(cursorInterval);
-  }, []);
-
-  // Typewriter effect
-  useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const typeSpeed = isDeleting ? 40 : 80;
-
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayText(currentRole.slice(0, displayText.length + 1));
-        if (displayText.length === currentRole.length) {
-          setTimeout(() => setIsDeleting(true), 2000);
-        }
-      } else {
-        setDisplayText(currentRole.slice(0, displayText.length - 1));
-        if (displayText.length === 0) {
-          setIsDeleting(false);
-          setRoleIndex((prev) => (prev + 1) % roles.length);
-        }
-      }
-    }, typeSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, roleIndex]);
-
-  // Matrix-style rain effect
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -70,7 +29,7 @@ const HeroSection = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    const chars = "01{}[]<>/*#=+-;:.abcdefghijklmnopqrstuvwxyz";
+    const chars = "01[]<>/*#=+-;:.abcdefghijklmnopqrstuvwxyz";
     const fontSize = 14;
     const columns = Math.floor(canvas.width / fontSize);
     const drops: number[] = Array(columns).fill(1);
@@ -83,11 +42,9 @@ const HeroSection = () => {
       for (let i = 0; i < drops.length; i++) {
         const char = chars[Math.floor(Math.random() * chars.length)];
 
-        // Lead character — brighter
         ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
         ctx.fillText(char, i * fontSize, drops[i] * fontSize);
 
-        // Trail character — slightly dimmer
         if (drops[i] > 1) {
           const trailChar = chars[Math.floor(Math.random() * chars.length)];
           ctx.fillStyle = "rgba(0, 0, 0, 0.07)";
@@ -110,56 +67,40 @@ const HeroSection = () => {
 
   return (
     <section className="min-h-screen flex flex-col justify-center items-center relative px-6 overflow-hidden">
-      {/* Matrix rain canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 z-0 pointer-events-none"
       />
 
-      {/* Top-left code comment */}
       <div className="absolute top-28 left-6 md:left-10 z-10 hidden md:block">
         <p className="font-mono text-xs text-foreground/60 leading-relaxed font-medium">
-          // portfolio.tsx
           <br />
-          // version: 1.0.0
+
           <br />
-          // status: production
+
           <br />
-          // last_build: {new Date().toISOString().split("T")[0]}
         </p>
       </div>
 
-      {/* Top-right line numbers */}
       <div className="absolute top-28 right-6 md:right-10 z-10 hidden md:block">
-        <p className="font-mono text-xs text-foreground/40 leading-relaxed text-right font-medium">
-          {Array.from({ length: 6 }, (_, i) => (
-            <span key={i} className="block">
-              {String(i + 1).padStart(3, "0")}
-            </span>
-          ))}
-        </p>
+        <p className="font-mono text-xs text-foreground/40 leading-relaxed text-right font-medium"></p>
       </div>
 
-      {/* Main content */}
       <div className="text-center relative z-10">
-        {/* Tag line */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-foreground/30 bg-background/80 backdrop-blur-md shadow-sm">
-          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-          <span className="font-mono text-xs text-foreground/90 tracking-[0.15em] uppercase font-medium">
-            Available for work
-          </span>
-        </div>
-
-        {/* Name */}
         <h1
-          className="heading-brutal leading-[0.85]"
-          style={{ fontSize: "clamp(48px, 10vw, 130px)" }}
+          className="stagger-in heading-brutal leading-[0.85] text-shimmer cursor-default"
+          style={{
+            fontSize: "clamp(48px, 10vw, 130px)",
+            animationDelay: "400ms",
+          }}
         >
-          Dhiraj Harwani
+          {PERSONAL_INFO.name}
         </h1>
 
-        {/* Typewriter role */}
-        <div className="mt-6 h-8 flex items-center justify-center">
+        <div
+          className="stagger-in mt-6 h-8 flex items-center justify-center"
+          style={{ animationDelay: "600ms" }}
+        >
           <span className="font-mono text-sm md:text-base tracking-[0.2em] text-foreground/50">
             {"< "}
           </span>
@@ -178,66 +119,24 @@ const HeroSection = () => {
           </span>
         </div>
 
-        {/* Tech tags */}
-        <div className="flex flex-wrap gap-2 justify-center mt-8 max-w-md mx-auto">
-          {[
-            "React",
-            "Next.js",
-            "Node.js",
-            "TypeScript",
-            "MongoDB",
-            "PostgreSQL",
-            "SQL",
-          ].map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1 font-mono text-xs border-2 border-foreground/40 text-foreground/80 font-medium tracking-wider hover:bg-foreground hover:text-background transition-all duration-300 cursor-default"
-            >
-              {tech}
-            </span>
+        <div
+          className="stagger-in flex flex-wrap gap-2 justify-center mt-8 max-w-md mx-auto"
+          style={{ animationDelay: "800ms" }}
+        >
+          {HERO_TECH_TAGS.map((tech) => (
+            <TechTag key={tech} label={tech} size="md" />
           ))}
         </div>
 
-        {/* Social links */}
-        <div className="flex gap-4 justify-center mt-10">
-          {[
-            {
-              Icon: Github,
-              href: "https://github.com/harwanidhiraj",
-              label: "GitHub",
-            },
-            {
-              Icon: Linkedin,
-              href: "https://www.linkedin.com/in/harwani-dhiraj-395a88214/",
-
-              label: "LinkedIn",
-            },
-            {
-              Icon: BookOpen,
-              href: "", //change
-              label: "Dev",
-            },
-            {
-              Icon: Mail,
-              href: "mailto:harwanidhiraj23@gmail.com",
-              label: "Email",
-            },
-          ].map(({ Icon, href, label }, i) => (
-            <a
-              key={i}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="group relative inline-flex items-center justify-center p-3 border-2 border-black bg-white text-black transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] hover:bg-black hover:text-white"
-            >
-              <Icon className="w-5 h-5" />
-            </a>
-          ))}
+        <div className="stagger-in mt-10" style={{ animationDelay: "1000ms" }}>
+          <SocialLinks
+            links={SOCIAL_LINKS}
+            variant="icon"
+            className="justify-center"
+          />
         </div>
 
-        {/* Resume button */}
-        <div className="mt-10">
+        <div className="stagger-in mt-10" style={{ animationDelay: "1200ms" }}>
           <a
             href="/resume.pdf"
             download="Dhiraj_Harwani_MERN_Stack_Developer.pdf"
@@ -249,23 +148,20 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Bottom-left info */}
       <div className="absolute bottom-10 left-6 md:left-10 z-10">
         <span className="text-foreground/80 text-xs tracking-[0.2em] uppercase font-mono font-medium">
-          Dhiraj Harwani
+          {PERSONAL_INFO.name}
         </span>
       </div>
 
-      {/* Bottom-right stats */}
       <div className="absolute bottom-10 right-6 md:right-10 z-10 hidden md:block">
         <div className="font-mono text-xs text-foreground/80 text-right leading-relaxed font-medium">
-          <p>const experience = "3+ years";</p>
+          <p>const experience = "4+ years";</p>
           <p>const projects = 8+;</p>
           <p>const passion = Infinity;</p>
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
         <ChevronDown className="w-5 h-5 text-foreground/30 animate-bounce" />
       </div>

@@ -82,12 +82,47 @@
   }
 
   .nav-link {
-    @apply uppercase text-xs tracking-[0.2em] text-foreground hover:text-foreground/70 font-medium transition-colors duration-300;
+    @apply uppercase text-xs tracking-[0.2em] text-foreground/60 hover:text-foreground font-medium transition-all duration-300 relative;
+  }
+
+  .nav-link-active {
+    @apply text-foreground;
+  }
+
+  .nav-link-active::after {
+    content: "";
+    @apply absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-foreground;
+    animation: dotAppear 0.3s ease-out forwards;
+  }
+
+  @keyframes dotAppear {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
   }
 
   .fade-in {
     animation: fadeIn 0.8s ease-out forwards;
     opacity: 0;
+  }
+
+  /* Staggered entrance for hero elements */
+  .stagger-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: staggerFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes staggerFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes fadeIn {
@@ -103,16 +138,6 @@
     }
     50% {
       transform: translateY(-6px);
-    }
-  }
-
-  @keyframes breathe {
-    0%,
-    100% {
-      transform: translateY(0px) scale(1);
-    }
-    50% {
-      transform: translateY(-2px) scale(1.01);
     }
   }
 
@@ -154,4 +179,53 @@
   .animate-marquee-reverse {
     animation: marquee 60s linear infinite reverse;
   }
+
+  /* Subtle gradient shimmer for hero name */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  .text-shimmer:hover {
+    background: linear-gradient(
+      90deg,
+      hsl(0 0% 5%) 0%,
+      hsl(0 0% 40%) 45%,
+      hsl(0 0% 5%) 55%,
+      hsl(0 0% 5%) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* Selection color */
+  ::selection {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+  }
 }
+
