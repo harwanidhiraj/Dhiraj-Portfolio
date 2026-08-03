@@ -1,5 +1,6 @@
 import { useEffect, useRef, useMemo } from "react";
 import { ChevronDown } from "lucide-react";
+import { toast } from "sonner";
 import {
   SOCIAL_LINKS,
   ROLES,
@@ -148,6 +149,11 @@ const HeroSection = () => {
           <a
             href="/resume.pdf"
             download="Dhiraj_Harwani_MERN_Stack_Developer.pdf"
+            onClick={() => {
+              toast.success("Resume download started!", {
+                description: "Thank you for reviewing Dhiraj Harwani's resume.",
+              });
+            }}
             className="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 border-2 border-black bg-black text-white text-xs sm:text-sm font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,0.2)] hover:bg-white hover:text-black hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-full"
           >
             <span>Download Resume</span>

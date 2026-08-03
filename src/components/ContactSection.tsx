@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SectionBlock from "./SectionBlock";
 import { Mail, Copy, Check, MessageCircle } from "lucide-react";
+import { toast } from "sonner";
 import { SOCIAL_LINKS, PERSONAL_INFO } from "@/constants";
 import SocialLinks from "./common/SocialLinks";
 import FloatingInput from "./common/FloatingInput";
@@ -14,12 +15,18 @@ const ContactSection = () => {
     const text = `Name: ${form.name}\nEmail: ${form.email}\nMessage: ${form.message}`;
     const encodedText = encodeURIComponent(text);
     const phone = PERSONAL_INFO.phone.replace("+", "");
+    toast.info("Redirecting to WhatsApp...", {
+      description: `Sending message from ${form.name}`,
+    });
     window.open(`https://wa.me/${phone}?text=${encodedText}`, "_blank");
   };
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
     setCopied(true);
+    toast.success("Email copied to clipboard!", {
+      description: PERSONAL_INFO.email,
+    });
     setTimeout(() => setCopied(false), 2000);
   };
 
