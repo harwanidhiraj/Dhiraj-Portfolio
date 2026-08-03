@@ -4,6 +4,14 @@ const useActiveSection = (sectionIds: string[]): string => {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY < 200) {
+        setActiveSection("");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -12,21 +20,27 @@ const useActiveSection = (sectionIds: string[]): string => {
 
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && window.scrollY >= 200) {
             setActiveSection(id);
           }
         },
-        { rootMargin: "-40% 0px -55% 0px" }
+        { rootMargin: "-20% 0px -45% 0px" },
       );
 
       observer.observe(el);
       observers.push(observer);
     });
 
-    return () => observers.forEach((o) => o.disconnect());
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observers.forEach((o) => o.disconnect());
+    };
   }, [sectionIds]);
 
   return activeSection;
 };
 
 export default useActiveSection;
+

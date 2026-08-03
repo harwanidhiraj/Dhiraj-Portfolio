@@ -1,41 +1,37 @@
 import SectionBlock from "./SectionBlock";
 import AnimatedAvatar from "./AnimatedAvatar";
+import { PERSONAL_INFO } from "@/constants";
 
 const AboutSection = () => (
-  <SectionBlock id="about" title="About me">
+  <SectionBlock id="about" title="Professional Summary">
     <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
       <AnimatedAvatar />
       <div className="flex-1">
-        <p className="body-text max-w-2xl first-letter:text-3xl first-letter:font-black first-letter:mr-0.5 first-letter:float-left first-letter:leading-none">
-          I am a passionate MERN Stack Developer with over 4+ years of hands-on
-          experience in building scalable and production-ready web applications
-          using MongoDB, Express.js, React.js, and Node.js. I specialize in
-          developing responsive, user-friendly interfaces and robust backend
-          systems that deliver seamless performance. My experience includes
-          designing RESTful APIs, optimizing database structures, and ensuring
-          application security and performance across different environments.
+        <p className="body-text max-w-2xl text-base md:text-lg leading-relaxed first-letter:text-4xl first-letter:font-black first-letter:mr-1.5 first-letter:float-left first-letter:leading-none">
+          {PERSONAL_INFO.summary}
         </p>
-        <p className="body-text max-w-2xl mt-6">
-          Throughout my career, I have worked extensively with modern frontend
-          tools like React.js and TypeScript, implementing dynamic UI
-          components, state management solutions, and reusable architectures. On
-          the backend, I have built secure authentication systems, integrated
-          third-party APIs, implemented payment gateways, and managed complex
-          business logic. I focus on writing clean, maintainable code and
-          building applications that are scalable, efficient, and aligned with
-          real-world user needs.
-        </p>
-        <p className="body-text max-w-2xl mt-6 mb-8">
-          I have experience working in Agile development environments,
-          collaborating with cross-functional teams, and using Git for version
-          control and project management. I am committed to continuous learning
-          and consistently explore new technologies to improve performance,
-          security, and user experience. My goal is to develop impactful digital
-          solutions that are reliable, high-performing, and built to scale.
-        </p>
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 border-t-2 border-black/10 pt-6 max-w-2xl">
+          <div>
+            <span className="text-xs uppercase tracking-widest text-black/50 font-mono block">Location</span>
+            <span className="font-bold text-foreground">{PERSONAL_INFO.location}</span>
+          </div>
+          <div>
+            <span className="text-xs uppercase tracking-widest text-black/50 font-mono block">Email</span>
+            <span className="font-bold text-foreground">{PERSONAL_INFO.email}</span>
+          </div>
+          <div>
+            <span className="text-xs uppercase tracking-widest text-black/50 font-mono block">Specialization</span>
+            <span className="font-bold text-foreground">MERN Stack & Shopify Development</span>
+          </div>
+          <div>
+            <span className="text-xs uppercase tracking-widest text-black/50 font-mono block">Experience</span>
+            <span className="font-bold text-foreground">4+ Years</span>
+          </div>
+        </div>
       </div>
     </div>
   </SectionBlock>
 );
 
 export default AboutSection;
+

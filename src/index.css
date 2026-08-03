@@ -72,13 +72,13 @@
   }
 
   .section-title {
-    @apply font-black tracking-tighter leading-none text-foreground;
-    font-size: clamp(3rem, 8vw, 7rem);
+    @apply font-black tracking-tighter leading-none text-foreground sm:whitespace-nowrap max-w-full;
+    font-size: clamp(1.6rem, 5vw, 4.5rem);
   }
 
   .body-text {
-    @apply text-foreground/80 leading-relaxed font-light;
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    @apply text-foreground/80 leading-relaxed font-light break-words;
+    font-size: clamp(0.9375rem, 1.2vw, 1.125rem);
   }
 
   .nav-link {

@@ -65,7 +65,7 @@ const Terminal = () => {
     switch (cmd) {
       case "help":
         return (
-          <div className="grid grid-cols-[100px_1fr] gap-2">
+          <div className="grid grid-cols-[80px_1fr] sm:grid-cols-[100px_1fr] gap-1.5 sm:gap-2 text-xs sm:text-sm">
             <span className="text-green-400">about</span>{" "}
             <span>Learn about me</span>
             <span className="text-green-400">skills</span>{" "}
@@ -81,14 +81,15 @@ const Terminal = () => {
           </div>
         );
       case "about":
-        return `I'm ${PERSONAL_INFO.name}, a passionate developer specializing in React.js, Next.js, Node.js, MongoDB, PostgreSQL and TypeScript.`;
+        return `I'm ${PERSONAL_INFO.name}, a Full Stack Developer with 4+ years experience specializing in MERN Stack (React.js, Next.js, Node.js, Express.js, Nest.js, MongoDB, PostgreSQL) and Shopify ecosystem (Themes, Functions, Checkout Extensibility).`;
       case "skills":
         return (
           <div>
             <p className="mb-1">CORE STACK:</p>
-            <p>• React / TypeScript</p>
-            <p>• Node.js</p>
-            <p>• MongoDB / PostgreSQL</p>
+            <p>• React.js / Next.js / TypeScript</p>
+            <p>• Node.js / Nest.js / Express.js</p>
+            <p>• Shopify (Themes, Liquid, Polaris, Functions, Checkout Extensibility)</p>
+            <p>• MongoDB / PostgreSQL / MySQL</p>
           </div>
         );
       case "projects":
@@ -125,7 +126,7 @@ const Terminal = () => {
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:underline"
               >
-                www.linkedin.com/in/harwani-dhiraj
+                linkedin.com/in/harwani-dhiraj-395a88214/
               </a>
             </p>
             <p>
@@ -227,16 +228,16 @@ const Terminal = () => {
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50 group">
-        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-1 bg-black text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 group">
+        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-1 bg-black text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden sm:block">
           Ctrl + K
         </div>
         <button
           onClick={() => setIsOpen(true)}
-          className="p-3 bg-white border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-white transition-all duration-300"
+          className="p-2.5 sm:p-3 bg-white border border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-white transition-all duration-300"
           aria-label="Open Terminal"
         >
-          <TerminalIcon className="w-5 h-5" />
+          <TerminalIcon className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       </div>
     );
@@ -244,16 +245,16 @@ const Terminal = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-2 sm:p-4"
       onClick={() => setIsOpen(false)}
     >
       <div
-        className={`bg-[#0c0c0c] border border-white/20 shadow-[8px_8px_0px_0px_rgba(255,255,255,0.1)] w-full transition-all duration-300 flex flex-col font-mono text-sm md:text-base ${
-          isMaximized ? "h-[95vh] w-[95vw]" : "max-w-2xl h-[600px]"
+        className={`bg-[#0c0c0c] border border-white/20 shadow-[8px_8px_0px_0px_rgba(255,255,255,0.1)] w-full transition-all duration-300 flex flex-col font-mono text-xs sm:text-sm md:text-base ${
+          isMaximized ? "h-[95vh] w-[95vw]" : "max-w-2xl h-[80vh] max-h-[580px]"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-4 py-2 border-b border-white/10 bg-[#1a1a1a]">
+        <div className="flex items-center justify-between px-3 sm:px-4 py-2 border-b border-white/10 bg-[#1a1a1a]">
           <div className="flex items-center gap-2">
             <div
               className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 cursor-pointer"
@@ -264,7 +265,7 @@ const Terminal = () => {
               onClick={() => setIsMaximized(!isMaximized)}
             />
             <div className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 cursor-pointer" />
-            <span className="ml-2 text-white/60 text-xs">
+            <span className="ml-2 text-white/60 text-[10px] sm:text-xs truncate max-w-[140px] sm:max-w-none">
               guest@Dhiraj-portfolio:~
             </span>
           </div>
@@ -285,24 +286,24 @@ const Terminal = () => {
         </div>
 
         <div
-          className="flex-1 overflow-y-auto p-4 text-white/90 selection:bg-white/20"
+          className="flex-1 overflow-y-auto p-3 sm:p-4 text-white/90 selection:bg-white/20 space-y-2"
           ref={scrollRef}
           onClick={handleTerminalClick}
         >
           {history.map((entry) => (
-            <div key={entry.id} className="mb-2 break-words">
+            <div key={entry.id} className="break-words">
               {entry.content}
             </div>
           ))}
 
-          <form onSubmit={handleSubmit} className="flex items-center gap-2">
-            <span className="text-green-400 shrink-0">guest@portfolio:~$</span>
+          <form onSubmit={handleSubmit} className="flex items-center gap-2 pt-1">
+            <span className="text-green-400 shrink-0 text-xs sm:text-sm">guest@portfolio:~$</span>
             <input
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 bg-transparent border-none outline-none text-white focus:ring-0 p-0"
+              className="flex-1 min-w-0 bg-transparent border-none outline-none text-white focus:ring-0 p-0 text-xs sm:text-sm"
               autoFocus
               spellCheck={false}
               autoComplete="off"

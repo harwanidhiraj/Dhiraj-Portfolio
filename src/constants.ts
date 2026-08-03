@@ -2,7 +2,6 @@ import {
   Github,
   Linkedin,
   Mail,
-  BookOpen,
   MessageCircle,
   type LucideIcon,
 } from "lucide-react";
@@ -11,7 +10,10 @@ export const PERSONAL_INFO = {
   name: "Dhiraj Harwani",
   email: "harwanidhiraj23@gmail.com",
   phone: "+918849892389",
-  title: "MERN Stack Developer",
+  title: "Full Stack Developer",
+  location: "Rajkot, India",
+  summary:
+    "Full Stack Developer with 4+ years of experience building scalable web applications using the MERN Stack (MongoDB, Express.js, React.js, Node.js) and Shopify. Experienced in developing custom Shopify themes, Shopify app development, Checkout Extensibility, Shopify Functions, and REST APIs. Proficient in JavaScript, TypeScript, React.js, Next.js, Nest.js, and modern frontend development with a strong focus on performance, scalability, and clean code.",
 } as const;
 
 export interface SocialLink {
@@ -33,7 +35,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     icon: MessageCircle,
-    href: `https://wa.me/${PERSONAL_INFO.phone}?text=${encodeURIComponent("Hi! I found your portfolio and really liked your projects and experience. I'm reaching out to connect and learn more about your work. Looking forward to chatting with you!")}`,
+    href: `https://wa.me/${PERSONAL_INFO.phone.replace("+", "")}?text=${encodeURIComponent("Hi Dhiraj! I reviewed your portfolio and would love to connect.")}`,
     label: "WhatsApp",
   },
   {
@@ -58,17 +60,17 @@ export const NAV_LINKS: NavItem[] = [
 ];
 
 export const ROLES: string[] = [
-  "MERN Stack Developer",
   "Full Stack Developer",
-  "React Developer",
-  "Next.js Developer",
-  "Node.js Developer",
-  "Nest.js Developer",
+  "MERN Stack Developer",
+  "Shopify Developer",
+  "React.js / Next.js Developer",
+  "Node.js / Nest.js Developer",
 ];
 
 export const HERO_TECH_TAGS: string[] = [
-  "React",
+  "React.js",
   "Next.js",
+  "Shopify",
   "Node.js",
   "Nest.js",
   "TypeScript",
@@ -85,58 +87,73 @@ export interface SkillCategory {
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Core Languages",
-    skills: ["JavaScript", "TypeScript", "SQL", "HTML5", "CSS3"],
+    skills: ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3", "SQL"],
   },
   {
     title: "Frontend",
     skills: [
-      "React",
+      "React.js",
       "Next.js",
-      "Redux",
-      "Context API",
-      "TailwindCSS",
+      "Redux Toolkit",
+      "Tailwind CSS",
+      "Material UI",
       "Bootstrap",
-      "Material-UI",
-      "Chart.js",
     ],
   },
   {
     title: "Backend",
+    skills: ["Node.js", "Express.js", "Nest.js", "REST APIs", "Socket.io"],
+  },
+  {
+    title: "Shopify Ecosystem",
     skills: [
-      "Node.js",
-      "Nest.js",
-      "Express.js",
-      "Socket.io",
-      "EJS",
-      "JWT",
-      "OAuth",
-      "Passport.js",
+      "Shopify Theme Development",
+      "Liquid",
+      "Shopify CLI",
+      "Shopify Admin API",
+      "Storefront API",
+      "Shopify Polaris",
+      "App Extensions",
+      "Shopify Functions",
+      "Checkout Extensibility",
+      "Webhooks",
     ],
   },
   {
     title: "Databases",
-    skills: [
-      "MongoDB",
-      "PostgreSQL",
-      "MySQL",
-      "Prisma",
-      "Sequelize",
-      "Supabase",
-    ],
+    skills: ["MongoDB", "PostgreSQL", "MySQL"],
   },
   {
-    title: "DevOps",
-    skills: ["Vercel", "Render", "Git", "GitHub", "GitLab"],
+    title: "ORM & Query Builders",
+    skills: ["TypeORM", "Prisma", "Sequelize"],
   },
   {
     title: "Development Tools",
-    skills: ["Postman", "ESLint", "Nodemon", "NPM", "Yarn", "SonarQube"],
+    skills: [
+      "Git",
+      "GitHub",
+      "Bitbucket",
+      "Jira",
+      "Trello",
+      "VS Code",
+      "Postman",
+    ],
+  },
+  {
+    title: "Deployment & Hosting",
+    skills: ["Vercel", "Netlify", "Render"],
+  },
+  {
+    title: "Operating Systems",
+    skills: ["Windows", "Linux"],
   },
 ];
 
 export interface Project {
   title: string;
-  description: string;
+  subtitle?: string;
+  description?: string;
+  bullets: string[];
   tags: string[];
   isNew?: boolean;
   githubUrl?: string;
@@ -145,65 +162,112 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    title: "EVENT MANAGEMENT SYSTEM",
-    isNew: false,
-    description:
-      "Worked as a Full Stack Developer to build key features like event creation, ticket booking/cancellation, and dynamic seating layout. I integrated Nodemailer for email notifications and socket for in-app notification and weather forecast APIs. I also developed analytics dashboards using the MongoDB Aggregation Pipeline.",
-    tags: ["React.js", "TypeScript", "Tailwind", "Node.js", "PostgreSQL"],
-  },
-  {
-    title: "JOB JUNCTION",
-    description:
-      "Worked as a React developer on Job Junction, a clone of Upwork focused on connecting freelancers with clients. Developed responsive UI components for job listings, proposals, messaging, and user dashboards. Ensured smooth UX and API integration.",
-    tags: ["React.js", "TypeScript", "MUI"],
-  },
-  {
-    title: "BASE TEAM",
-    description:
-      "Developed a full-featured Project Management app inspired by tools like Trello and Jira. Built both frontend and backend, including features like boards, task lists, drag-anddrop cards, user roles, comments, deadlines, and real-time updates.",
-    tags: ["React.js", "Node.js", "PostgreSQL", "Socket.io"],
-  },
-  {
-    title: "LOGGY - CAR MAINTENANCE TRACKER",
-    description:
-      "Worked as a Backend Developer for Loggy, a free vehicle maintenance tracking app. Designed and developed secure, scalable APIs for managing service logs across multiple vehicle types. Focused on data accuracy, performance, and seamless user experience.",
-    tags: ["React.js", "Node.js", "PostgreSQL"],
+    title: "RuleForge",
+    subtitle: "Shopify Rules & Checkout Customization App",
+    isNew: true,
+    bullets: [
+      "Developed a Shopify embedded app for advanced checkout validation and customization using Shopify Functions and Checkout UI Extensions.",
+      "Built a no-code rule builder with React.js, Shopify Polaris, and Express.js for managing checkout, payment, and shipping rules.",
+      "Integrated Shopify Admin Metafields and Webhooks to synchronize rules and track real-time checkout analytics.",
+      "Developed scalable backend services using Node.js, Express.js, and PostgreSQL with support for rule versioning, scheduling, and analytics dashboards.",
+    ],
+    tags: [
+      "Shopify",
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Shopify Polaris",
+      "Shopify Functions",
+      "Checkout UI Extensions",
+    ],
   },
   {
     title: "TERRE DES HOMMES SUISSE - TDHS",
-    description:
-      "Worked on the Terre des Hommes Suisse project, a Swiss NGO platform supporting children's rights across 10 countries. Led back-end development and successfully implemented Version 2 with improved performance, improved API structure, and secure data management.",
-    tags: ["React.js", "Node.js", "PostgreSQL"],
+    subtitle: "NGO Operational Platform",
+    bullets: [
+      "Built modules for NGO operations supporting children's rights initiatives across 10 countries.",
+      "Developed secure REST APIs and enhanced database design and authentication.",
+      "Improved API performance by implementing Version 2 architecture.",
+    ],
+    tags: ["React.js", "Node.js", "Express.js", "PostgreSQL"],
   },
   {
-    title: "GROCERY APP",
-    description:
-      "Developed the complete backend for a full-featured grocery app, handling user authentication, product management, cart, orders, payments, and admin panel functionality. Ensured secure, scalable, and high-performance APIs.",
-    tags: ["React.js", "Flutter", "Node.js", "PostgreSQL", "Sequelize"],
+    title: "EVENT MANAGEMENT SYSTEM",
+    subtitle: "Real-time Event & Booking Platform",
+    bullets: [
+      "Developed event creation, ticket booking/cancellation, and dynamic seating management features.",
+      "Integrated Nodemailer for automated email notifications.",
+      "Implemented Socket.io for real-time in-app notifications.",
+      "Built and integrated REST APIs to support frontend functionality.",
+    ],
+    tags: ["React.js", "Node.js", "Express.js", "PostgreSQL", "Socket.io"],
+  },
+  {
+    title: "JOB JUNCTION",
+    subtitle: "Recruitment & Freelance Platform",
+    bullets: [
+      "Developed a job portal for recruiters and job seekers.",
+      "Built job posting, proposal management, and messaging modules.",
+      "Created reusable React components for improved maintainability.",
+      "Integrated REST APIs for seamless frontend-backend communication.",
+      "Implemented responsive user interfaces for multiple user roles.",
+    ],
+    tags: ["React.js", "Node.js", "Express.js", "PostgreSQL"],
+  },
+  {
+    title: "LOGGY - CAR MAINTENANCE TRACKER",
+    subtitle: "Vehicle Service Tracking System",
+    bullets: [
+      "Built vehicle maintenance tracking platform.",
+      "Focused on data accuracy, performance, and seamless user experience.",
+    ],
+    tags: ["React.js", "Node.js", "Express.js", "SQL"],
   },
 ];
 
 export interface Experience {
   role: string;
   company: string;
+  location?: string;
   period: string;
-  description: string;
+  description?: string;
+  bullets: string[];
 }
 
 export const EXPERIENCES: Experience[] = [
   {
     role: "Software Engineer",
     company: "Tatva Soft",
-    period: "[JUNE 2023 – PRESENT]",
-    description:
-      "MERN Stack Developer at TatvaSoft; gained strong expertise in React.js, focusing on building responsive user interfaces, seamless API integration, component-based architecture, and optimizing front-end performance for scalable web applications.",
+    location: "Rajkot",
+    period: "June 2023 – Present",
+    bullets: [
+      "Developed scalable React.js applications using reusable component architecture.",
+      "Built responsive UI using React.js, Redux Toolkit, Material UI and Tailwind CSS.",
+      "Integrated REST APIs and optimized frontend performance using lazy loading, memoization and code splitting.",
+      "Collaborated closely with backend and UI/UX teams following Agile methodology.",
+      "Improved application performance and reduced page load time through frontend optimization techniques.",
+      "Maintained clean code standards using Git workflows and code reviews.",
+      "Developed custom Shopify themes and reusable sections using Liquid, improving store customization and maintainability.",
+      "Built custom Shopify sections and reusable theme components.",
+      "Customized Shopify Checkout and storefront functionality.",
+      "Implemented third-party app integrations.",
+    ],
   },
   {
     role: "Jr.Software Engineer",
     company: "Tri-state Technology",
-    period: "[JUNE 2022 – JUNE 2023]",
-    description:
-      "Backend Developer at Tristate Technology, focused on scalable APIs, database design, and performance optimization. Played a key role in the architecting of RESTful services, the integration of third-party APIs, and the guarantee of secure high-performance back-end solutions using Node.js, Express, PostgreSQL, and Sequelize. Collaborated cross-functionally with front-end and QA teams to deliver robust product features in an Agile environment. Contributed to reducing API latency by 30% and improving database efficiency through optimized query design.",
+    location: "Ahmedabad",
+    period: "June 2022 – June 2023",
+    bullets: [
+      "Designed and developed scalable RESTful APIs using Node.js and Express.js for enterprise web applications.",
+      "Designed scalable backend architecture using MongoDB and PostgreSQL.",
+      "Implemented secure authentication using JWT.",
+      "Integrated third-party APIs and payment gateways.",
+      "Optimized database queries resulting in improved application performance.",
+      "Collaborated with frontend developers for API integration.",
+      "Followed Agile development practices and Git version control.",
+    ],
   },
 ];
 
@@ -211,12 +275,15 @@ export interface Education {
   degree: string;
   school: string;
   year: string;
+  cgpa?: string;
 }
 
 export const EDUCATION: Education[] = [
   {
-    degree: "Computer Science And Engineering, B.Tech, Rajkot",
-    school: "Sanjaybhai Rajguru College of Engineering",
+    degree: "Computer Science And Engineering Science",
+    school: "GTU, SREZ collage (Sanjaybhai Rajguru College of Engineering)",
     year: "2019 – 2022",
+    cgpa: "8.0/10",
   },
 ];
+

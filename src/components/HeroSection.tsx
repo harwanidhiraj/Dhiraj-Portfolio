@@ -13,6 +13,7 @@ import useTypewriter from "@/hooks/useTypewriter";
 const HeroSection = () => {
   const { displayText, cursorVisible } = useTypewriter({ strings: ROLES });
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const buildDate = useMemo(() => new Date().toISOString().split("T")[0], []);
 
   useEffect(() => {
@@ -23,8 +24,13 @@ const HeroSection = () => {
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (sectionRef.current) {
+        canvas.width = sectionRef.current.offsetWidth;
+        canvas.height = sectionRef.current.offsetHeight;
+      } else {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
     };
     resize();
     window.addEventListener("resize", resize);
@@ -66,7 +72,10 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center relative px-6 overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="min-h-screen md:min-h-[105vh] flex flex-col justify-center items-center relative px-4 sm:px-6 overflow-hidden py-24 sm:py-32 pb-28 sm:pb-36"
+    >
       <canvas
         ref={canvasRef}
         className="absolute inset-0 z-0 pointer-events-none"
@@ -86,11 +95,11 @@ const HeroSection = () => {
         <p className="font-mono text-xs text-foreground/40 leading-relaxed text-right font-medium"></p>
       </div>
 
-      <div className="text-center relative z-10">
+      <div className="text-center relative z-10 w-full max-w-4xl mx-auto">
         <h1
-          className="stagger-in heading-brutal leading-[0.85] text-shimmer cursor-default"
+          className="stagger-in heading-brutal leading-[0.9] sm:leading-[0.85] text-shimmer cursor-default break-words"
           style={{
-            fontSize: "clamp(48px, 10vw, 130px)",
+            fontSize: "clamp(32px, 8vw, 120px)",
             animationDelay: "400ms",
           }}
         >
@@ -98,29 +107,28 @@ const HeroSection = () => {
         </h1>
 
         <div
-          className="stagger-in mt-6 h-8 flex items-center justify-center"
+          className="stagger-in mt-4 sm:mt-6 min-h-[2.5rem] flex items-center justify-center flex-wrap px-2"
           style={{ animationDelay: "600ms" }}
         >
-          <span className="font-mono text-sm md:text-base tracking-[0.2em] text-foreground/50">
+          <span className="font-mono text-xs sm:text-sm md:text-base tracking-[0.15em] sm:tracking-[0.2em] text-foreground/50 select-none">
             {"< "}
           </span>
-          <span className="font-mono text-sm md:text-base tracking-[0.15em] text-foreground/70 font-medium">
+          <span className="font-mono text-xs sm:text-sm md:text-base tracking-[0.1em] sm:tracking-[0.15em] text-foreground/70 font-medium break-all">
             {displayText}
           </span>
           <span
-            className={`font-mono text-sm md:text-base text-foreground/70 ${
-              cursorVisible ? "opacity-100" : "opacity-0"
-            }`}
+            className={`font-mono text-xs sm:text-sm md:text-base text-foreground/70 ${cursorVisible ? "opacity-100" : "opacity-0"
+              }`}
           >
             |
           </span>
-          <span className="font-mono text-sm md:text-base tracking-[0.2em] text-foreground/50">
+          <span className="font-mono text-xs sm:text-sm md:text-base tracking-[0.15em] sm:tracking-[0.2em] text-foreground/50 select-none">
             {" />"}
           </span>
         </div>
 
         <div
-          className="stagger-in flex flex-wrap gap-2 justify-center mt-8 max-w-md mx-auto"
+          className="stagger-in flex flex-wrap gap-1.5 sm:gap-2 justify-center mt-6 sm:mt-8 max-w-sm sm:max-w-md mx-auto px-2"
           style={{ animationDelay: "800ms" }}
         >
           {HERO_TECH_TAGS.map((tech) => (
@@ -128,7 +136,7 @@ const HeroSection = () => {
           ))}
         </div>
 
-        <div className="stagger-in mt-10" style={{ animationDelay: "1000ms" }}>
+        <div className="stagger-in mt-8 sm:mt-10" style={{ animationDelay: "1000ms" }}>
           <SocialLinks
             links={SOCIAL_LINKS}
             variant="icon"
@@ -136,11 +144,11 @@ const HeroSection = () => {
           />
         </div>
 
-        <div className="stagger-in mt-10" style={{ animationDelay: "1200ms" }}>
+        <div className="stagger-in mt-8 sm:mt-10" style={{ animationDelay: "1200ms" }}>
           <a
             href="/resume.pdf"
             download="Dhiraj_Harwani_MERN_Stack_Developer.pdf"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 border-2 border-black bg-black text-white text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.2)] hover:bg-white hover:text-black hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+            className="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 border-2 border-black bg-black text-white text-xs sm:text-sm font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,0.2)] hover:bg-white hover:text-black hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-full"
           >
             <span>Download Resume</span>
             <span className="w-2 h-2 border-r-2 border-b-2 border-current rotate-45 -translate-y-[1px] group-hover:translate-y-[1px] transition-transform duration-300"></span>
@@ -148,8 +156,8 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-6 md:left-10 z-10">
-        <span className="text-foreground/80 text-xs tracking-[0.2em] uppercase font-mono font-medium">
+      <div className="absolute bottom-6 sm:bottom-10 left-4 sm:left-6 md:left-10 z-10">
+        <span className="text-foreground/80 text-[10px] sm:text-xs tracking-[0.15em] sm:tracking-[0.2em] uppercase font-mono font-medium">
           {PERSONAL_INFO.name}
         </span>
       </div>
@@ -157,13 +165,13 @@ const HeroSection = () => {
       <div className="absolute bottom-10 right-6 md:right-10 z-10 hidden md:block">
         <div className="font-mono text-xs text-foreground/80 text-right leading-relaxed font-medium">
           <p>const experience = "4+ years";</p>
-          <p>const projects = 8+;</p>
+          <p>const projects = 5+;</p>
           <p>const passion = Infinity;</p>
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
-        <ChevronDown className="w-5 h-5 text-foreground/30 animate-bounce" />
+      <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-10">
+        <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/30 animate-bounce" />
       </div>
     </section>
   );
