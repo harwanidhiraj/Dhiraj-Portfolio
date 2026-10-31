@@ -13,7 +13,7 @@ export const PERSONAL_INFO = {
   title: "Full Stack Developer",
   location: "Rajkot, India",
   summary:
-    "Full Stack Developer with 4+ years of experience building scalable web applications using the MERN Stack (MongoDB, Express.js, React.js, Node.js) and Shopify. Experienced in developing custom Shopify themes, Shopify app development, Checkout Extensibility, Shopify Functions, and REST APIs. Proficient in JavaScript, TypeScript, React.js, Next.js, Nest.js, and modern frontend development with a strong focus on performance, scalability, and clean code.",
+    "Full Stack Developer with 4+ years of experience building scalable web applications using the MERN Stack (MongoDB, Express.js, React.js, Node.js), Shopify and Laravel. Experienced in developing custom Shopify themes, Shopify app development, Checkout Extensibility, Shopify Functions, and REST APIs. Proficient in JavaScript, TypeScript, React.js, Next.js, Nest.js, and modern frontend development with a strong focus on performance, scalability, and clean code.",
 } as const;
 
 export interface SocialLink {

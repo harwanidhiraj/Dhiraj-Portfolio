@@ -81,7 +81,7 @@ const Terminal = () => {
           </div>
         );
       case "about":
-        return `I'm ${PERSONAL_INFO.name}, a Full Stack Developer with 4+ years experience specializing in MERN Stack (React.js, Next.js, Node.js, Express.js, Nest.js, MongoDB, PostgreSQL) and Shopify ecosystem (Themes, Functions, Checkout Extensibility).`;
+        return `I'm ${PERSONAL_INFO.name}, a Full Stack Developer with 4+ years experience specializing in MERN Stack (React.js, Next.js, Node.js, Express.js, Nest.js, MongoDB, PostgreSQL), Shopify ecosystem (Themes, Functions, Checkout Extensibility) and Laravel.`;
       case "skills":
         return (
           <div>
@@ -89,6 +89,7 @@ const Terminal = () => {
             <p>• React.js / Next.js / TypeScript</p>
             <p>• Node.js / Nest.js / Express.js</p>
             <p>• Shopify (Themes, Liquid, Polaris, Functions, Checkout Extensibility)</p>
+            <p>• Laravel</p>
             <p>• MongoDB / PostgreSQL / MySQL</p>
           </div>
         );
