@@ -65,6 +65,7 @@ export const ROLES: string[] = [
   "Shopify Developer",
   "React.js / Next.js Developer",
   "Node.js / Nest.js Developer",
+  "Laravle"
 ];
 
 export const HERO_TECH_TAGS: string[] = [
@@ -73,6 +74,7 @@ export const HERO_TECH_TAGS: string[] = [
   "Shopify",
   "Node.js",
   "Nest.js",
+  "Laravel",
   "TypeScript",
   "MongoDB",
   "PostgreSQL",
@@ -102,7 +104,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   },
   {
     title: "Backend",
-    skills: ["Node.js", "Express.js", "Nest.js", "REST APIs", "Socket.io"],
+    skills: ["Node.js", "Express.js", "Nest.js", "Laravel", "REST APIs", "Socket.io"],
   },
   {
     title: "Shopify Ecosystem",
@@ -191,6 +193,15 @@ export const PROJECTS: Project[] = [
       "Improved API performance by implementing Version 2 architecture.",
     ],
     tags: ["React.js", "Node.js", "Express.js", "PostgreSQL"],
+  },
+  {
+    title:"POWER OF PRAYER - POP",
+    subtitle: "Faith-Based Community Platform",
+    bullets: [
+      "Developed a faith-based community platform that empowers users to take greater responsibility for their prayer life.",
+      "Updated the application to the latest version, upgrading dependencies to improve performance, stability, and maintainability.",
+    ],
+    tags: ["Flutter", "Node.js", "Express.js", "PostgreSQL"],
   },
   {
     title: "EVENT MANAGEMENT SYSTEM",
