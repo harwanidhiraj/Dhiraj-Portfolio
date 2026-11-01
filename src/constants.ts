@@ -61,6 +61,7 @@ export const NAV_LINKS: NavItem[] = [
 
 export const ROLES: string[] = [
   "Full Stack Developer",
+  "Senior Software Engineer",
   "MERN Stack Developer",
   "Shopify Developer",
   "React.js / Next.js Developer",
@@ -248,7 +249,7 @@ export interface Experience {
 
 export const EXPERIENCES: Experience[] = [
   {
-    role: "Software Engineer",
+    role: "Senior Software Engineer",
     company: "Tatva Soft",
     location: "Rajkot",
     period: "June 2023 – Present",
